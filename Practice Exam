@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D775 Business Finance Practice Exam</title>
+<style>
+:root {
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+  --bg:#f5f4f0; --surface:#ffffff; --surface2:#f9f8f5; --border:#e2dfd6; --border2:#d3cfc3;
+  --text:#1d1c22; --muted:#6c6b76; --muted2:#4f4e59;
+  --accent:#8f6a12; --accent-bg:#8f6a1216;
+  --ok:#157a3a; --ok-bg:#15803d12; --ok-line:#16a34a;
+  --bad:#b42323; --bad-bg:#dc262610; --bad-line:#dc2626;
+  --warn:#a15c07; --warn-bg:#d9770614; --info:#1d4ed8; --info-bg:#2563eb12;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#0c0c12; --surface:#14141e; --surface2:#0a0a14; --border:#1e1e2e; --border2:#2a2a3e;
+    --text:#e2e8f0; --muted:#64748b; --muted2:#94a3b8;
+    --accent:#d4a843; --accent-bg:#d4a84322;
+    --ok:#4ade80; --ok-bg:#16532822; --ok-line:#16a34a;
+    --bad:#f87171; --bad-bg:#450a0a33; --bad-line:#dc2626;
+    --warn:#fbbf24; --warn-bg:#78350f33; --info:#93c5fd; --info-bg:#1e3a8a33;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0c0c12; --surface:#14141e; --surface2:#0a0a14; --border:#1e1e2e; --border2:#2a2a3e;
+  --text:#e2e8f0; --muted:#64748b; --muted2:#94a3b8;
+  --accent:#d4a843; --accent-bg:#d4a84322;
+  --ok:#4ade80; --ok-bg:#16532822; --ok-line:#16a34a;
+  --bad:#f87171; --bad-bg:#450a0a33; --bad-line:#dc2626;
+  --warn:#fbbf24; --warn-bg:#78350f33; --info:#93c5fd; --info-bg:#1e3a8a33;
+}
+*,*::before,*::after { box-sizing:inherit; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html { scroll-padding-top:env(safe-area-inset-top, 0px); }
+body { background:var(--bg); color:var(--text); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; min-height:100%; }
+button { font-family:inherit; }
+button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+.header { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 14px 10px; position:sticky; top:env(safe-area-inset-top, 0px); z-index:100; }
+.wrap { max-width:720px; margin:0 auto; }
+.header-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.title { font-size:18px; font-weight:800; color:var(--accent); letter-spacing:-0.2px; }
+.subtitle { font-size:11px; color:var(--muted); margin-top:2px; }
+.stats { display:flex; gap:14px; }
+.stat-label { font-size:10px; color:var(--muted); text-align:center; }
+.stat-val { font-size:16px; font-weight:800; text-align:center; font-variant-numeric:tabular-nums; }
+.filters { display:flex; gap:5px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+.fbtn { padding:5px 11px; font-size:11px; font-weight:600; border-radius:14px; cursor:pointer; border:1px solid var(--border2); background:transparent; color:var(--muted2); }
+.fbtn.on { border-color:var(--accent); background:var(--accent-bg); color:var(--accent); }
+.fbtn.drill { border-color:var(--bad-line); }
+.fbtn.drill.on { background:var(--bad-bg); color:var(--bad); }
+.fbtn.mock { border-color:var(--info); }
+.fbtn.mock.on { background:var(--info-bg); color:var(--info); }
+.sbtn { padding:5px 11px; font-size:11px; font-weight:700; border-radius:14px; border:1px solid var(--accent); background:transparent; color:var(--accent); cursor:pointer; }
+.rbtn { padding:5px 11px; font-size:11px; font-weight:700; border-radius:14px; border:1px solid var(--bad-line); background:transparent; color:var(--bad); cursor:pointer; }
+.rbtn.confirm { background:var(--bad-bg); }
+
+.controls { max-width:720px; margin:0 auto; padding:10px 10px 0; }
+.tools { display:flex; gap:6px; flex-wrap:wrap; }
+.tbtn { padding:6px 12px; font-size:11px; font-weight:600; border-radius:8px; cursor:pointer; border:1px solid var(--border2); background:var(--surface); color:var(--muted2); }
+.tbtn.on { border-color:var(--accent); color:var(--accent); }
+.chips { margin-top:8px; display:flex; flex-direction:column; gap:5px; }
+.chip-row { display:flex; gap:4px; flex-wrap:wrap; align-items:center; }
+.mchip, .secbtn { padding:4px 9px; font-size:11px; font-weight:600; border-radius:12px; cursor:pointer; border:1px solid var(--border2); background:transparent; color:var(--muted2); }
+.secbtn { font-weight:800; min-width:34px; }
+.mchip.on, .secbtn.on { border-color:var(--accent); background:var(--accent-bg); color:var(--accent); }
+.mchip.all.on { border-color:var(--ok-line); background:var(--ok-bg); color:var(--ok); }
+.legend { font-size:10px; color:var(--muted); margin-top:8px; line-height:1.6; }
+.legend b { font-weight:600; }
+
+.panel { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; margin-top:10px; font-size:12px; line-height:1.6; color:var(--muted2); }
+.panel h3 { font-size:14px; color:var(--text); margin-bottom:8px; }
+.panel h4 { font-size:12px; color:var(--accent); margin:12px 0 4px; }
+.panel ul { padding-left:18px; }
+.panel li { margin-bottom:4px; }
+.panel .strong { color:var(--text); font-weight:600; }
+.sec-bars { display:flex; flex-direction:column; gap:6px; margin-top:8px; }
+.sec-bar { display:grid; grid-template-columns:minmax(0,1fr) 110px; gap:8px; align-items:center; }
+.bar { height:8px; border-radius:4px; background:var(--border); overflow:hidden; margin-top:3px; }
+.bar > span { display:block; height:100%; }
+.status { font-size:10px; font-weight:700; text-align:right; }
+.fgrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:4px 16px; }
+.frow { padding:3px 0; border-bottom:1px dashed var(--border); }
+.frow .strong { display:inline-block; min-width:0; }
+.panel-link { margin-top:10px; padding:6px 12px; border-radius:14px; border:1px solid var(--bad-line); background:var(--bad-bg); color:var(--bad); font-weight:700; font-size:11px; cursor:pointer; }
+
+.main { max-width:720px; margin:0 auto; padding:10px 10px 80px; }
+.card { background:var(--surface); border-radius:10px; border:1px solid var(--border); margin-bottom:8px; overflow:hidden; }
+.card.correct { border-color:var(--ok-line); }
+.card.wrong { border-color:var(--bad-line); }
+.card-head { padding:10px 12px 6px; }
+.tags { display:flex; gap:5px; align-items:center; flex-wrap:wrap; }
+.qnum { font-size:10px; font-weight:700; color:var(--muted); }
+.tag { font-size:10px; padding:2px 7px; border-radius:8px; font-weight:600; }
+.tag-mastered { background:var(--ok-bg); color:var(--ok); }
+.tag-needs { background:var(--warn-bg); color:var(--warn); }
+.tag-weak { background:var(--bad-bg); color:var(--bad); }
+.tag-new { background:var(--info-bg); color:var(--info); }
+.tag-m { background:var(--surface2); color:var(--muted2); border:1px solid var(--border); }
+.tag-pa { background:var(--bad-bg); color:var(--bad); border:1px solid var(--bad-line); }
+.qtext { padding:0 12px 9px; font-size:14px; line-height:1.55; font-weight:500; }
+.opts { padding:0 12px 10px; display:flex; flex-direction:column; gap:5px; }
+.opt { padding:10px 11px; font-size:13px; text-align:left; border-radius:7px; border:1px solid var(--border); background:var(--surface2); color:var(--text); cursor:pointer; line-height:1.45; width:100%; }
+.opt:disabled { cursor:default; }
+.opt .letter { font-weight:700; margin-right:6px; color:var(--muted); }
+.opt.right { background:var(--ok-bg); border-color:var(--ok-line); color:var(--ok); font-weight:700; }
+.opt.right .letter { color:var(--ok); }
+.opt.picked-wrong { background:var(--bad-bg); border-color:var(--bad-line); color:var(--bad); }
+.opt.dimmed { opacity:0.5; }
+.explanation { padding:10px 12px; border-top:1px solid var(--border); background:var(--surface2); font-size:12px; color:var(--muted2); line-height:1.7; }
+.verdict { font-size:11px; font-weight:700; margin-right:5px; }
+.verdict.ok { color:var(--ok); }
+.verdict.no { color:var(--bad); }
+.final { text-align:center; padding:24px 18px; background:var(--surface); border-radius:12px; border:2px solid var(--accent); margin-top:8px; }
+.final-pct { font-size:44px; font-weight:800; font-variant-numeric:tabular-nums; }
+.final-detail { font-size:13px; color:var(--muted2); margin-top:3px; }
+.final-msg { font-size:12px; color:var(--muted); margin-top:8px; line-height:1.5; }
+.final-secs { margin:14px auto 0; max-width:360px; text-align:left; font-size:12px; color:var(--muted2); }
+.final-secs div { display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dashed var(--border); }
+.final-btn { margin-top:14px; padding:8px 18px; border-radius:18px; border:1px solid var(--accent); background:var(--accent-bg); color:var(--accent); cursor:pointer; font-weight:700; font-size:12px; margin-right:6px; }
+.empty { text-align:center; padding:30px; color:var(--muted); font-size:13px; line-height:1.6; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto !important; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="wrap">
+    <div class="header-top">
+      <div>
+        <div class="title">D775 Business Finance</div>
+        <div class="subtitle" id="subtitle">Practice exam</div>
+      </div>
+      <div class="stats">
+        <div id="timeWrap" style="display:none"><div class="stat-label">Time</div><div class="stat-val" id="statTime">0:00</div></div>
+        <div><div class="stat-label">Done</div><div class="stat-val" id="statDone">0/0</div></div>
+        <div><div class="stat-label">Score</div><div class="stat-val" id="statScore" style="color:var(--muted)">—</div></div>
+      </div>
+    </div>
+    <div class="filters">
+      <button class="fbtn on" data-act="filter" data-v="all" id="f-all">All</button>
+      <button class="fbtn" data-act="filter" data-v="weak" id="f-weak">⚠️ Drill weak</button>
+      <button class="fbtn" data-act="filter" data-v="unseen" id="f-unseen">🆕 Unseen</button>
+      <button class="fbtn drill" data-act="filter" data-v="preoa" id="f-preoa" title="Questions built from your PA #1 misses">🎯 PA gap drill</button>
+      <button class="fbtn mock" data-act="filter" data-v="mock" id="f-mock" title="70 questions weighted like the real OA">📝 Mock OA</button>
+      <button class="sbtn" data-act="shuffle">↻ Shuffle</button>
+      <button class="rbtn" data-act="reset" id="resetBtn">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="tools">
+    <button class="tbtn" data-act="panel" data-v="pa" id="p-pa">📋 PA #1 recap</button>
+    <button class="tbtn" data-act="panel" data-v="f" id="p-f">∑ Formula sheet</button>
+  </div>
+  <div id="panels"></div>
+  <div class="chips" id="chips"></div>
+  <div class="legend">
+    <b style="color:var(--ok)">✅ Mastered</b> 80%+ correct &nbsp;
+    <b style="color:var(--warn)">⚠️ Needs work</b> 50–79% &nbsp;
+    <b style="color:var(--bad)">🔴 Weak</b> under 50% &nbsp;
+    <b style="color:var(--info)">🆕 New</b> not attempted &nbsp;
+    <b style="color:var(--bad)">PA miss</b> the exact question you missed on PA #1.<br>
+    Tap a section (S1–S4) or topics to filter. Answer options reshuffle each session so you learn the concept, not the letter.
+  </div>
+</div>
+
+<div class="main" id="main"></div>
+
+<script>
+var Q=[
+// ── S1 · Topic 1: What is finance? ──
+{id:1,m:1,q:"Which principle guides business finance in deciding how to put limited resources to their best use?",o:["GAAP standards","Risk-return trade-off","Tax compliance","Government regulation"],c:1,e:"PA MISS (Q1). The RISK-RETURN TRADE-OFF is the core decision principle of finance: higher expected return only comes with higher risk, so resources go where the return justifies the risk. GAAP is an accounting reporting standard; tax compliance and regulation are rules to follow. None of them tell you how to allocate resources."},
+{id:2,m:1,q:"A CFO must choose between parking cash in 4% Treasury bills or funding a new product line with a possible 15% return but uncertain demand. Which core finance principle is she applying?",o:["Agency theory","Double-entry bookkeeping","Risk-return trade-off","Market efficiency"],c:2,e:"Weighing a safe, low return against a riskier, higher one is the RISK-RETURN TRADE-OFF in action."},
+{id:3,m:1,q:"Which activity describes capital raising in business finance?",o:["Calculating company profits for operations and projects","Securing funding for business operations and projects","Auditing financial records for operations and projects","Managing individual bank accounts for operations and projects"],c:1,e:"Capital raising = SECURING FUNDING (debt or equity) for operations and projects. Calculating profit and auditing are accounting functions."},
+{id:4,m:1,q:"Which finance activity involves the creation, circulation, and management of money in an economy?",o:["Corporate governance","Tax preparation","Setting monetary policy","Audit procedures"],c:2,e:"Monetary policy (set by a central bank such as the Federal Reserve) controls the creation and circulation of money through money supply and interest rates."},
+{id:5,m:1,q:"A state legislature debates how to fund a highway project using a mix of tax revenue and newly issued municipal bonds. Which type of finance is this?",o:["Personal finance","Business finance","Public finance","Behavioral finance"],c:2,e:"PUBLIC FINANCE = managing a government's revenue, expenditures, and debt. Personal = individuals and households. Business = a firm's capital structure and value."},
+{id:6,m:1,q:"Which statement best describes business (corporate) finance?",o:["Planning a household budget and retirement savings","Managing a country's revenue, spending, and debt","Managing a firm's capital structure, funding, and the actions that increase company value","Recording transactions according to GAAP"],c:2,e:"Business finance deals with the firm's capital structure (debt vs. equity), how it is funded, and management actions that increase firm value."},
+{id:7,m:1,q:"A couple builds a monthly budget, opens a college savings plan for their child, and refinances their mortgage. Which type of finance is this?",o:["Personal finance","Public finance","Business finance","International finance"],c:0,e:"Planning and managing an individual's or household's financial activities = PERSONAL finance."},
+{id:8,m:1,q:"What is generally considered the primary financial goal of a corporation's managers?",o:["Maximize accounting revenue this quarter","Maximize shareholder wealth (the value of the firm)","Minimize the number of employees","Avoid all debt financing"],c:1,e:"Maximizing shareholder wealth, meaning the long-term value of the firm, is the primary goal. Short-term revenue can be boosted in ways that destroy value."},
+{id:9,m:1,q:"Finance is broadly defined as the management of money. Which activity falls OUTSIDE that definition?",o:["Forecasting","Borrowing and lending","Designing product packaging","Budgeting and saving"],c:2,e:"Finance covers investing, borrowing, lending, budgeting, saving, and forecasting. Packaging design is a marketing/product decision."},
+
+// ── S1 · Topic 2: Financial instruments ──
+{id:10,m:2,q:"What is common stock?",o:["A type of bond issued by corporations","A share of ownership in a firm with voting rights","A financial security that provides fixed dividends","A government-issued debt security"],c:1,e:"Common stock = EQUITY ownership + VOTING rights. Fixed dividends describe preferred stock."},
+{id:11,m:2,q:"What is a characteristic of preferred stock?",o:["Voting rights","High liquidity","Fixed dividends","No asset claims in liquidation"],c:2,e:"Preferred stock pays FIXED dividends and is paid before common stock, but usually has NO voting rights."},
+{id:12,m:2,q:"What is the purpose of bonds from the issuer's perspective?",o:["To gain ownership in other companies","To raise capital without diluting ownership","To provide short-term liquidity","To increase market capitalization"],c:1,e:"Bonds are DEBT: the issuer borrows and repays with interest, so existing owners keep their ownership percentage."},
+{id:13,m:2,q:"Which type of bonds are considered junk bonds?",o:["AAA-rated bonds","Treasury bonds","Investment-grade bonds","Speculative bonds"],c:3,e:"Junk = SPECULATIVE, high-yield bonds rated below investment grade. Higher default risk means higher interest."},
+{id:14,m:2,q:"Which type of investment vehicle is uniquely used for retirement savings?",o:["Hedge funds","401(k) plans","Exchange-traded funds","Mutual funds"],c:1,e:"A 401(k) is an employer-sponsored, tax-advantaged RETIREMENT account. The others can be held for any purpose."},
+{id:15,m:2,q:"What is true about options in financial derivatives?",o:["They give the buyer the right, but not the obligation, to buy or sell an asset","They provide ownership in the underlying asset based on the strike price","They are mandatory contracts to buy or sell at a future date and at a set price","They are only issued by governments based on sovereign fund trading strategies"],c:0,e:"PA MISS (Q9). OPTION = RIGHT, not OBLIGATION. Holding an option does not mean owning the asset (your pick). The 'mandatory contract' choice describes a FUTURES contract, the most common trap."},
+{id:16,m:2,q:"A bakery signs a binding contract to buy wheat in six months at $7 per bushel, regardless of the market price then. Which derivative is this?",o:["Call option","Put option","Futures contract","Preferred stock"],c:2,e:"Binding obligation to buy or sell at a set future price = FUTURES. An option would let the bakery walk away."},
+{id:17,m:2,q:"An investor expects a stock to fall and buys the right, but not the obligation, to SELL it at $50 before year-end. What did she buy?",o:["Call option","Put option","Futures contract","Corporate bond"],c:1,e:"PUT = right to SELL. CALL = right to BUY. Both are options, so neither obligates the buyer."},
+{id:18,m:2,q:"What determines the price of a derivative security?",o:["The issuing company's credit rating only","The value of an underlying asset such as a stock, bond, or commodity","The government's inflation target","A fixed coupon rate"],c:1,e:"A derivative derives its value from an UNDERLYING asset."},
+{id:19,m:2,q:"How do funds benefit from economies of scale?",o:["By charging individual investors higher fees to capture large margins","By making large-scale investments that reduce transaction costs","By focusing on high-risk investments to obtain above-market returns","By providing guaranteed returns through risk-free strategies"],c:1,e:"Pooling many investors' money lets funds trade in bulk, lowering the transaction cost per dollar invested."},
+{id:20,m:2,q:"Which three terms define a bond?",o:["Voting rights, dividend rate, and par value","Amount borrowed, interest rate, and maturity date","Strike price, expiration date, and premium","Share count, market price, and P/E ratio"],c:1,e:"Bonds are borrowed money that must be repaid, with terms stating the AMOUNT borrowed, the INTEREST rate, and the MATURITY date. Strike price and expiration belong to options."},
+{id:21,m:2,q:"A company is liquidated. In what order are claims typically paid?",o:["Common stockholders, preferred stockholders, bondholders","Preferred stockholders, bondholders, common stockholders","Bondholders, preferred stockholders, common stockholders","All investors are paid equally"],c:2,e:"Creditors (bondholders) first, then preferred, then common last. That priority is why debt is less risky, and cheaper, than equity."},
+
+// ── S1 · Topic 3: Markets & institutions ──
+{id:22,m:3,q:"What is an initial public offering (IPO)?",o:["The sale of existing securities among investors","The first sale of a company's stock to the public","The issuance of bonds by the government","The trading of financial derivatives"],c:1,e:"IPO = FIRST sale of stock to the public. It happens in the PRIMARY market."},
+{id:23,m:3,q:"What is an example of a secondary market activity?",o:["A new bond issuance by a corporation issued for a new project","The sale of newly issued Treasury bonds to fund a government program","The trading of stocks on the New York Stock Exchange","An initial public offering launched in the open market framework"],c:2,e:"PA MISS (Q12). SECONDARY = investors trading EXISTING securities with each other (NYSE, Nasdaq). Anything 'new' or 'newly issued' is the PRIMARY market, where the issuer receives the money."},
+{id:24,m:3,q:"An investor sells shares she bought five years ago to another investor through her brokerage account. Where does this transaction occur?",o:["Primary market","Secondary market","IPO market","Private placement"],c:1,e:"Already-issued shares changing hands between investors = SECONDARY market. The company receives nothing from this trade."},
+{id:25,m:3,q:"Which is a PRIMARY market transaction?",o:["A pension fund buys existing Microsoft shares on Nasdaq","An investor sells a 10-year-old Treasury bond to another investor","A corporation sells newly issued bonds to raise money for a factory","A day trader buys and sells shares of an ETF"],c:2,e:"Primary = FIRST sale of NEW securities, and the issuer gets the cash. Trading existing securities = secondary."},
+{id:26,m:3,q:"What are the two main types of financial markets based on their functions?",o:["Stock markets and bond markets","Primary markets and secondary markets","Foreign exchange and commodities markets","Auction markets and dealer markets"],c:1,e:"By FUNCTION: primary (issuing new) and secondary (trading existing). Stock/bond is by instrument; auction/dealer is by trading mechanism."},
+{id:27,m:3,q:"What is a role of financial regulators?",o:["Issuing new stocks","Trading securities","Ensuring fair and transparent markets","Providing insurance for investments"],c:2,e:"Regulators such as the SEC protect investors by keeping markets FAIR and TRANSPARENT."},
+{id:28,m:3,q:"In which type of market do market makers stand ready to buy and sell securities from their own inventory?",o:["Auction market","Dealer market","Primary market","Private market"],c:1,e:"DEALER market = trades go through dealers or market makers. AUCTION market = buyers and sellers compete directly against each other."},
+{id:29,m:3,q:"A startup raises $3 million from a venture capital firm rather than selling shares to the general public. Which market is it using?",o:["Public market","Secondary market","Private market","Auction market"],c:2,e:"PRIVATE markets are limited to specialized institutions and investors (venture capital, private equity). PUBLIC markets let the general public participate."},
+{id:30,m:3,q:"What are depository institutions?",o:["Institutions that only manage investments","Institutions that accept deposits and provide loans","Institutions that only provide insurance","Institutions that manage pension funds"],c:1,e:"Depository institutions (banks, credit unions) ACCEPT DEPOSITS and MAKE LOANS."},
+{id:31,m:3,q:"What is the primary source of revenue for depository institutions?",o:["Premiums from policyholders","Management fees from investments","Interest income from loans","Contributions from pensioners"],c:2,e:"Banks earn the spread: more interest charged on LOANS than paid on deposits. Premiums = insurance; contributions = pensions."},
+{id:32,m:3,q:"Which institution collects premiums, invests them to earn income, and uses that income to pay claims?",o:["Pension fund","Insurance company","Depository institution","Investment bank"],c:1,e:"Insurance companies: PREMIUMS in, invest them, pay CLAIMS out."},
+{id:33,m:3,q:"Which institution accumulates contributions from employers and employees and invests them to provide retirement income?",o:["Pension fund","Credit union","Insurance company","Commercial bank"],c:0,e:"PENSION funds accumulate employer and employee contributions and invest them for retirement income."},
+{id:34,m:3,q:"A mutual fund company pools money from thousands of investors to buy a diversified portfolio. Which type of financial institution is this?",o:["Depository institution","Investment institution","Insurance company","Regulatory agency"],c:1,e:"INVESTMENT institutions pool investors' money to invest in financial instruments."},
+{id:35,m:3,q:"Which three things do financial markets provide that are essential for economic growth and stability?",o:["Liquidity, capital, and participation","Guaranteed returns, insurance, and tax breaks","Price controls, subsidies, and regulation","Audits, budgets, and forecasts"],c:0,e:"Financial markets provide LIQUIDITY (easy to buy and sell), CAPITAL (funding), and PARTICIPATION."},
+
+// ── S1 · Topic 4: Business & the economy ──
+{id:36,m:4,q:"How does a rising Consumer Price Index (CPI) affect businesses?",o:["It leads to lower production costs","It ensures higher profit margins","It indicates increased costs for raw materials and labor","It reduces the need for wage adjustments"],c:2,e:"Rising CPI = inflation, which means higher input costs and wage pressure."},
+{id:37,m:4,q:"Which indicator measures the total value of all goods and services produced in an economy?",o:["CPI","PPI","GDP","Unemployment rate"],c:2,e:"GDP = total output. CPI = consumer prices. PPI = producer selling prices."},
+{id:38,m:4,q:"Which indicator measures the average change over time in the selling prices received by domestic producers?",o:["Producer Price Index (PPI)","Consumer Price Index (CPI)","Gross Domestic Product (GDP)","Yield curve"],c:0,e:"PPI = what PRODUCERS receive (wholesale). CPI = what CONSUMERS pay. Both feed inflation estimates."},
+{id:39,m:4,q:"What is inflation?",o:["The rate at which the general level of prices rises over a period of time","Total spending by households","The percentage of the labor force without jobs","The gap between long- and short-term interest rates"],c:0,e:"Inflation = rate of rising general prices, which reduces the PURCHASING POWER of each dollar."},
+{id:40,m:4,q:"Why is the unemployment rate considered a lagging indicator?",o:["It is only reported every ten years","It generally rises or falls after economic conditions have already changed","It predicts recessions before they occur","It only measures government employees"],c:1,e:"Businesses cut or add jobs AFTER conditions shift, so unemployment LAGS the economy."},
+{id:41,m:4,q:"Short-term Treasury yields rise above long-term yields, inverting the yield curve. What does this typically signal?",o:["Strong economic expansion ahead","A possible economic contraction or recession","Falling unemployment","Rising corporate profits"],c:1,e:"The SLOPE of the yield curve predicts direction. Inverted (downward sloping) historically signals CONTRACTION; a normal upward slope suggests expansion."},
+{id:42,m:4,q:"What is the total amount spent on goods and services by individuals and households for personal use called?",o:["Government spending","Consumer spending","Net exports","Business investment"],c:1,e:"CONSUMER spending, a critical component of economic activity."},
+{id:43,m:4,q:"How are economic indicators used by governments and investors?",o:["To set GAAP standards","To show the state of the economy and guide policy and investment strategies","To calculate a company's current ratio","To determine individual tax refunds"],c:1,e:"Indicators show the economy's state, help predict its future, and guide POLICY and INVESTMENT strategy."},
+{id:44,m:4,q:"A furniture manufacturer notices the PPI for lumber has risen sharply for three straight months. What should management most likely expect?",o:["Lower cost of goods sold","Higher input costs that may squeeze margins or require price increases","Lower interest rates","Automatic increases in sales volume"],c:1,e:"Rising PPI = producers charging more, so your INPUT costs rise and profit margins come under pressure."},
+
+// ── S1 · Topic 5: Ethics ──
+{id:45,m:5,q:"How can companies demonstrate a commitment to corporate social responsibility (CSR)?",o:["Producing the most wealth for shareholders","Beating their return on equity goals for each quarter","Supporting education and healthcare initiatives","Ensuring the three financial statements are always audited"],c:2,e:"PA MISS (Q18). CSR = going BEYOND profit and legal requirements to contribute positively to SOCIETY. Audits are a legal/regulatory requirement for public companies: compliance, not CSR. Shareholder wealth and ROE are profit goals."},
+{id:46,m:5,q:"A manufacturer funds scholarships at local community colleges and sponsors free health clinics in the towns where it operates. What does this demonstrate?",o:["An agency problem","Corporate social responsibility","Earnings management","Regulatory compliance"],c:1,e:"Voluntary contributions to education and health in the community = CSR."},
+{id:47,m:5,q:"Which action is a regulatory COMPLIANCE requirement rather than a demonstration of CSR?",o:["Donating to disaster relief","Funding paid employee volunteer days","Having audited financial statements as a public company","Cutting emissions beyond what the law requires"],c:2,e:"Required by law = compliance. CSR is VOLUNTARY positive contribution. This is exactly the trap from PA Q18."},
+{id:48,m:5,q:"What is the impact of integrating environmental, social, and governance (ESG) criteria into investment decisions?",o:["Promoting sustainable and ethical practices","Seeking long-term risks to protect stakeholders","Supporting a specific political party as a company platform","Increasing short-term profits so all stakeholders can benefit"],c:0,e:"ESG investing directs capital toward SUSTAINABLE and ETHICAL practices."},
+{id:49,m:5,q:"Which role do ethical considerations play in addressing agency problems?",o:["Promoting personal interests of managers","Aligning managers' goals with shareholders' interests","Encouraging short-term risk-taking","Reducing transparency in corporate governance"],c:1,e:"Agency problem = agents (managers) may not act in principals' (shareholders') interests. Ethics and incentives ALIGN them."},
+{id:50,m:5,q:"A CEO uses the company jet for family vacations while shareholder returns lag the industry. What does this illustrate?",o:["Corporate social responsibility","An agency problem","Diversification","The risk-return trade-off"],c:1,e:"A manager (agent) benefiting personally at shareholders' (principals') expense = AGENCY PROBLEM."},
+{id:51,m:5,q:"Which practice helps reduce agency problems?",o:["Paying executives a fixed salary regardless of results","Tying executive compensation to long-term stock performance","Reducing board oversight","Limiting financial disclosures"],c:1,e:"Stock-based, long-term pay makes managers think like owners, aligning their interests with shareholders."},
+{id:52,m:5,q:"An executive sells company shares after learning, before the public, that a major contract will be cancelled. What is this?",o:["Legal portfolio rebalancing","Insider trading","Arbitrage","Hedging"],c:1,e:"Trading on material NON-PUBLIC information = insider trading, which is illegal and unethical."},
+{id:53,m:5,q:"Legal and ethical dilemmas in finance often require managers to:",o:["Follow only the letter of the law","Navigate decisions that go beyond mere adherence to laws and regulations","Maximize short-term earnings at any cost","Avoid all disclosures"],c:1,e:"Ethics goes BEYOND legal compliance. Something can be legal and still unethical."},
+
+// ── S2 · Topic 6: Why ratios? ──
+{id:54,m:6,q:"What is the purpose of using financial ratios for investors?",o:["To control the company's internal operational processes","To evaluate the company's potential for return on investment","To predict exact future profit margins","To set the company's long-term business strategies"],c:1,e:"Investors use ratios to evaluate RETURN potential. Ratios don't predict exact numbers or run operations."},
+{id:55,m:6,q:"How do financial ratios help in comparing companies?",o:["By setting marketing strategies automatically","By determining exact stock prices","By providing a standardized basis for performance evaluation","By managing employee performance"],c:2,e:"Ratios scale numbers (per dollar of sales, assets, etc.), so firms of different sizes can be compared on a STANDARDIZED basis."},
+{id:56,m:6,q:"How do financial ratios aid in performance benchmarking?",o:["They guarantee improvement in market valuation","They allow comparison with industry standards and competitors","They eliminate the need for budgeting","They set legal requirements for business operations"],c:1,e:"Benchmarking = comparing to INDUSTRY standards and COMPETITORS."},
+{id:57,m:6,q:"An analyst compares a retailer's 2026 current ratio to the average current ratio of five competing retailers in 2026. What type of analysis is this?",o:["Time series (trend) analysis","Cross-sectional analysis","Sensitivity analysis","Break-even analysis"],c:1,e:"CROSS-SECTIONAL = one firm vs. INDUSTRY PEERS at the same point in time."},
+{id:58,m:6,q:"A manager charts the company's profit margin for each of the last eight years. What type of analysis is this?",o:["Cross-sectional analysis","Time series (trend) analysis","Capital budgeting","Peer benchmarking"],c:1,e:"TIME SERIES / TREND = the same firm OVER TIME."},
+{id:59,m:6,q:"A company's current ratio is 1.8. What is needed before drawing a conclusion from this number?",o:["Nothing, because 1.8 is always good","A comparison to industry peers or the firm's own history","The company's stock price","The CEO's salary"],c:1,e:"Ratios are only meaningful in a COMPARATIVE framework (cross-sectional or trend). A number on its own tells you little."},
+{id:60,m:6,q:"A bank reviewing a short-term loan application would focus MOST on which ratio categories?",o:["Market and profitability","Liquidity and leverage","Activity and market","Profitability only"],c:1,e:"Lenders want to know: can you pay short-term bills (LIQUIDITY), and how much debt do you already carry (LEVERAGE)?"},
+
+// ── S2 · Topic 7: The 5 major ratio types ──
+{id:61,m:7,q:"What do profitability ratios indicate?",o:["Earnings relative to revenue","Short-term liabilities","Asset turnover rates","Debt repayment ability"],c:0,e:"Profitability = ability to generate INCOME relative to revenue, assets, or equity (profit margin, operating margin, ROA, ROE)."},
+{id:62,m:7,q:"What does the current ratio evaluate?",o:["Market stock value","Short-term liquidity","Profit margins","Debt-to-assets ratio"],c:1,e:"PA MISS (Q25). CURRENT ratio = current assets ÷ current liabilities → SHORT-TERM LIQUIDITY. 'Current' means short-term (within one year). Debt-to-assets is a separate LEVERAGE ratio."},
+{id:63,m:7,q:"How is the current ratio calculated?",o:["Total liabilities ÷ total assets","Current assets ÷ current liabilities","Net income ÷ current assets","(Current assets − inventory) ÷ current liabilities"],c:1,e:"Current ratio = CA ÷ CL. Subtracting inventory gives the QUICK ratio."},
+{id:64,m:7,q:"What does a high average collection period indicate?",o:["A slow conversion of receivables to cash","A slight increase to already strong liquidity","An increase in high total asset turnover and high fixed asset turnover","A decreasing market value as measured by a decreasing P/E ratio"],c:0,e:"PA MISS (Q26). Average collection period = number of DAYS to collect receivables. More days = SLOWER collection = cash tied up. It is the flip side of AR turnover."},
+{id:65,m:7,q:"A firm has accounts receivable of $60,000 and annual credit sales of $730,000. What is its average collection period?",o:["12 days","30 days","45 days","60 days"],c:1,e:"Daily sales = $730,000 ÷ 365 = $2,000. Collection period = $60,000 ÷ $2,000 = 30 DAYS."},
+{id:66,m:7,q:"What does a high current ratio suggest about a company's financial health?",o:["Strong liquidity","Weak liquidity","Average asset usage","Poor asset usage"],c:0,e:"More current assets per dollar of current liabilities = STRONG liquidity."},
+{id:67,m:7,q:"What does a high accounts receivable turnover rate indicate?",o:["Delayed cash collection","Frequent receivables collection","Increased inventory costs","Low turnover ratio"],c:1,e:"High AR turnover = receivables collected MANY times a year = fast collection. High turnover ↔ LOW collection period."},
+{id:68,m:7,q:"What does a high debt-to-assets ratio suggest?",o:["Conservative financial strategy","Heavy reliance on liabilities","Low financial leverage","High equity usage"],c:1,e:"PA MISS (Q29). Debt ÷ assets HIGH = most assets are financed with DEBT = HIGH leverage. 'Low financial leverage' (your pick) is the exact opposite. High debt ratio = high leverage, every time."},
+{id:69,m:7,q:"A company's debt-to-assets ratio is 20% while its industry averages 55%. What does this suggest?",o:["Aggressive use of debt","A conservative, equity-heavy financing strategy","Poor liquidity","High default risk"],c:1,e:"Low debt ratio = LOW leverage = CONSERVATIVE, mostly equity-financed. It also means unused borrowing capacity."},
+{id:70,m:7,q:"What does a high times interest earned (TIE) ratio signify?",o:["Ability to cover debt payments","Strong asset efficiency","High profit margins","Increased stock valuation"],c:0,e:"TIE = EBIT ÷ interest expense. High = earnings cover interest many times over."},
+{id:71,m:7,q:"Which ratio reflects an ability to pay interest on debt as it becomes due?",o:["Current ratio","Total asset turnover","Times interest earned ratio","Price-to-earnings ratio"],c:2,e:"PA MISS (Q32). The word INTEREST in the question points to TIMES INTEREST EARNED. The current ratio (your pick) measures paying all current liabilities from current assets, not paying interest from earnings."},
+{id:72,m:7,q:"A company reports EBIT of $900,000 and interest expense of $150,000. What is its times interest earned ratio?",o:["0.17 times","6.0 times","7.5 times","16.7%"],c:1,e:"TIE = EBIT ÷ interest = $900,000 ÷ $150,000 = 6.0 times."},
+{id:73,m:7,q:"What does a high return on assets suggest?",o:["Effective asset usage","High debt levels","Inefficient asset use","Low revenue levels"],c:0,e:"ROA = net income ÷ total assets. High = the assets generate a lot of PROFIT."},
+{id:74,m:7,q:"What is the primary difference between fixed asset turnover and return on assets?",o:["Fixed asset turnover is an activity ratio; return on assets is a profitability ratio","Fixed asset turnover is a profitability ratio; return on assets is an activity ratio","Return on assets is a market ratio; fixed asset turnover is an activity ratio","Return on assets is a profitability ratio; fixed asset turnover is a liquidity ratio"],c:0,e:"PA MISS (Q33). TURNOVER of fixed or total assets = ACTIVITY (sales generated per dollar of assets). RETURN on anything = PROFITABILITY. Fixed assets are long-term, so a fixed-asset ratio can't be a liquidity ratio (your pick)."},
+{id:75,m:7,q:"Total asset turnover belongs to which ratio category?",o:["Liquidity","Activity (efficiency)","Leverage","Market"],c:1,e:"In D775, ACTIVITY ratios = total asset turnover and fixed asset turnover: how well assets are used to generate sales."},
+{id:76,m:7,q:"In D775's framework, average collection period, accounts receivable turnover, and inventory turnover are grouped under which category?",o:["Activity","Liquidity","Profitability","Leverage"],c:1,e:"COURSE-SPECIFIC: D775 groups current, quick, cash, average collection period, AR turnover, and inventory turnover under LIQUIDITY (they show how fast current assets become cash). Some textbooks call a few of these 'activity' ratios; go with the course. Activity = TAT and FAT only."},
+{id:77,m:7,q:"Which ratio identifies the profitability relative to equity?",o:["Debt-to-equity ratio","Market valuation","Return on equity","Short-term assets"],c:2,e:"PA MISS (Q34). PROFITABILITY relative to equity = RETURN on equity (net income ÷ equity). Debt-to-equity (your pick) has 'equity' in its name but is a LEVERAGE ratio. It measures debt, not profit."},
+{id:78,m:7,q:"A company earned net income of $240,000 with shareholders' equity of $1,600,000. What is its return on equity?",o:["6.7%","12%","15%","24%"],c:2,e:"ROE = net income ÷ equity = $240,000 ÷ $1,600,000 = 15%."},
+{id:79,m:7,q:"What does the debt-to-equity ratio measure?",o:["Profit generated per dollar of equity","How much debt the firm uses for each dollar of equity","Ability to pay short-term bills","Market price relative to earnings"],c:1,e:"Debt-to-equity = total debt ÷ equity → LEVERAGE. Don't confuse it with ROE (profitability)."},
+{id:80,m:7,q:"A firm has current assets of $500,000 (including $200,000 of inventory) and current liabilities of $250,000. What are its current and quick ratios?",o:["Current 2.0; quick 1.2","Current 1.2; quick 2.0","Current 2.0; quick 0.8","Current 2.8; quick 2.0"],c:0,e:"Current = 500 ÷ 250 = 2.0. Quick = (500 − 200) ÷ 250 = 1.2. Quick is never higher than current because inventory is removed."},
+{id:81,m:7,q:"Which is the MOST conservative liquidity ratio?",o:["Current ratio","Quick ratio","Cash ratio","Inventory turnover"],c:2,e:"CASH ratio counts only cash and equivalents against current liabilities: the strictest test. Quick removes inventory; current counts everything."},
+{id:82,m:7,q:"A stock trades at $45 and the company's earnings per share are $3. What is the P/E ratio?",o:["0.07","3","15","135"],c:2,e:"P/E = price ÷ EPS = $45 ÷ $3 = 15. It is a MARKET ratio."},
+{id:83,m:7,q:"A company's P/E ratio is much higher than its industry's. What does this most likely indicate?",o:["Investors expect higher future growth","The company is highly leveraged","The company has weak liquidity","The company collects receivables slowly"],c:0,e:"A high P/E means investors pay more per dollar of current earnings, usually because they expect GROWTH."},
+{id:84,m:7,q:"What are the five major categories of financial ratios in D775?",o:["Liquidity, activity, leverage, profitability, market","Liquidity, solvency, growth, tax, market","Revenue, expense, asset, liability, equity","Current, quick, cash, debt, equity"],c:0,e:"LIQUIDITY (short-term bills), ACTIVITY (asset use), LEVERAGE (debt), PROFITABILITY (income), MARKET (share price)."},
+{id:85,m:7,q:"A company has net income of $150,000 on revenue of $1,200,000. What is its profit margin?",o:["8%","12.5%","15%","80%"],c:1,e:"Profit margin = net income ÷ revenue = 150,000 ÷ 1,200,000 = 12.5%."},
+{id:86,m:7,q:"A company's cost of goods sold is $900,000 and its inventory is $300,000. What is its inventory turnover?",o:["0.33","3.0","4.0","6.0"],c:1,e:"Inventory turnover = COGS ÷ inventory = 900,000 ÷ 300,000 = 3.0 times per year."},
+{id:87,m:7,q:"Leverage ratios examine a company's long-term viability by comparing its debt to which items?",o:["Assets, equity, or earnings","Revenue only","Stock price","Inventory and receivables"],c:0,e:"Debt-to-ASSETS, debt-to-EQUITY, and times interest EARNED."},
+{id:88,m:7,q:"Which pairing correctly matches a ratio to its category?",o:["Return on assets: activity","Quick ratio: profitability","Times interest earned: leverage","Price-to-earnings: liquidity"],c:2,e:"TIE = LEVERAGE. ROA = profitability; quick = liquidity; P/E = market."},
+{id:89,m:7,q:"Which ratio would an investor use to judge whether a stock is expensive relative to the company's earnings?",o:["Current ratio","Price-to-earnings ratio","Debt-to-assets ratio","Fixed asset turnover"],c:1,e:"MARKET ratios assess share price → P/E."},
+
+// ── S2 · Topic 8: Using ratios to make decisions ──
+{id:90,m:8,q:"In what type of business would a manager expect to see the widest disparity between the quick ratio and the current ratio?",o:["Firm providing mostly services","Firm with high inventory","Firm with low profit margins","Firm with high debt"],c:1,e:"PA MISS (Q35). The ONLY difference between current and quick is INVENTORY. More inventory = bigger gap. A service firm (your pick) has little inventory, so its two ratios are almost equal."},
+{id:91,m:8,q:"Which business would likely have nearly IDENTICAL quick and current ratios?",o:["An auto dealership","A furniture retailer","A management consulting firm","A grocery chain"],c:2,e:"Consulting sells services, so it has almost no inventory → quick ≈ current."},
+{id:92,m:8,q:"A brand-new retail company is concerned about which products to hold on store shelves. How might it use its inventory turnover ratio to guide this decision?",o:["By ensuring optimal inventory management to balance sales demand and inventory levels","By assessing its ability to cover short-term obligations with available inventory","By determining the effectiveness of its equity financing strategies","By evaluating the efficiency of its operating expenses relative to revenue"],c:0,e:"Inventory turnover shows how fast stock sells: keep fast movers, cut slow movers, balance DEMAND with INVENTORY."},
+{id:93,m:8,q:"A sporting goods retailer's inventory turnover is below 3 and the manager's goal is 5. Which step will help increase inventory turnover?",o:["Order and carry more specialty one-of-a-kind items","Expand selection to include more brands and colors","Feature products for sports and activities that are in season","Raise prices on slow inventory to cover its cost"],c:2,e:"PA MISS (Q37). Turnover = COGS ÷ inventory. To RAISE it, sell FASTER or hold LESS. In-season products sell quickly. More brands and colors (your pick) = MORE inventory on shelves = LOWER turnover."},
+{id:94,m:8,q:"A furniture store's inventory turnover is 2 and management wants 4. Which action would help?",o:["Buy larger quantities to get volume discounts","Add more custom and exclusive pieces","Clear out slow-moving items and stock more of the best sellers","Offer every style in every fabric"],c:2,e:"Cut inventory that doesn't sell and focus on fast movers, so inventory falls relative to sales and turnover rises. Bulk buying and more variety INCREASE inventory."},
+{id:95,m:8,q:"What does a high quick ratio indicate during an economic downturn?",o:["It reflects the company's ability to expand market share quickly","It shows the company can cover obligations without selling inventory","It suggests the company should invest in customer loyalty programs","It indicates the company's need to focus on profit margins"],c:1,e:"PA MISS (Q38). The quick ratio EXCLUDES inventory. A high quick ratio means the firm can pay bills WITHOUT selling inventory, which matters when sales slow in a downturn."},
+{id:96,m:8,q:"A PC manufacturer with predictable high sales and earnings needs $5,000,000 to expand. Its debt-to-assets ratio is 30% (industry 50%) and its TIE is 60 (industry 54). What is the least expensive way to finance this?",o:["Use equity, as the firm has unfavorable leverage ratios but debt is more expensive","Use debt, as the firm has favorable leverage ratios and debt is less expensive","Use debt, as the firm has favorable leverage ratios and debt is more expensive","Use equity, as the firm has unfavorable leverage ratios but debt is less expensive"],c:1,e:"Low debt ratio + strong TIE = FAVORABLE leverage (room to borrow). Debt is generally CHEAPER than equity: interest is tax-deductible and lenders take less risk."},
+{id:97,m:8,q:"A company needs $3 million. Its debt-to-assets ratio is 75% (industry 45%) and its TIE is 1.8 (industry 6.0). How should it most likely finance the project?",o:["Use debt, because debt is always cheaper","Use equity, because its leverage ratios are unfavorable and more debt would raise default risk","Use debt, because its TIE is strong","Use short-term loans to improve the current ratio"],c:1,e:"Heavily indebted with barely enough earnings to cover interest → more debt is risky and expensive. EQUITY is the safer route."},
+{id:98,m:8,q:"An investor compares two dry-cleaning chains. Company A has 2 locations and a 35% profit margin; Company B has 10 locations and a 47% profit margin. What does the investor conclude?",o:["Company A has less debt than Company B","Company B has a higher return on assets than Company A","Company A has a lower times interest earned than Company B","Company B is more efficient operationally"],c:3,e:"PA MISS (Q40). Profit margin ONLY tells you how much of each sales dollar becomes profit → Company B is more efficient. You can't conclude anything about DEBT, TIE (your pick), or ROA from profit margin alone; those need balance sheet and interest data."},
+{id:99,m:8,q:"Coffee shop X has an 8% profit margin and coffee shop Y has a 14% profit margin. Using only this information, what can be concluded?",o:["Y has less debt than X","Y keeps more profit from each dollar of sales","Y has a higher current ratio","Y has a higher return on assets"],c:1,e:"Profit margin = profit per sales dollar. Nothing else can be inferred from it alone."},
+{id:100,m:8,q:"A big box retailer's busiest season runs November 1 to December 31. Which two components within its ratios will change the most during those 60 days?",o:["Current assets and fixed assets","Inventory and debt","Revenue and fixed assets","Revenue and inventory"],c:3,e:"PA MISS (Q41). Peak season = sales (REVENUE) surge and INVENTORY is sold down. Fixed assets (buildings, equipment) don't change in 60 days, so any option with fixed assets is out."},
+{id:101,m:8,q:"In October, a toy retailer builds up stock ahead of the holidays. What happens to the gap between its current ratio and its quick ratio?",o:["It widens, because inventory rises","It narrows, because inventory rises","It disappears","It is unaffected by inventory"],c:0,e:"Inventory counts in the current ratio but not the quick ratio. More inventory → current rises relative to quick → the gap WIDENS."},
+{id:102,m:8,q:"Which strategy should a company with a high current ratio and a low cash ratio use to improve its liquidity?",o:["Increase its liquidity through faster collection of receivables","Decrease its inventory turnover to hold more stock","Raise its debt-to-equity ratio to fund short-term needs","Improve its profit margin"],c:0,e:"High current + low cash = assets stuck in receivables or inventory. Collecting receivables faster turns them into CASH."},
+{id:103,m:8,q:"Which decision should a company make if it has a low total asset turnover (TAT) ratio?",o:["Decrease prices to stimulate sales","Increase inventory","Eliminate inefficient or unproductive assets","Retire debt"],c:2,e:"TAT = sales ÷ total assets. Low = too many assets for the sales they produce → shed unproductive assets."},
+{id:104,m:8,q:"An aircraft manufacturer wants to make sure it can pay year-end bonuses to employees in 30 days. Which metric should managers use?",o:["Current ratio","Profit margin","Quick ratio","Total asset turnover"],c:2,e:"Paying short-term obligations WITHOUT relying on selling aircraft inventory (which takes a long time) → QUICK ratio."},
+{id:105,m:8,q:"A cabinet maker's labor costs, its single largest expense, have risen sharply and reduced its profit margin and ROE. Which action would the finance team recommend?",o:["Use debt to purchase equipment that would automate tasks with high labor costs","Raise additional equity to support the increased costs of operations","Require customers to pre-pay for new orders, increasing AR turnover","Raise prices and accept the risk of losing customers"],c:0,e:"Attack the root cost (labor) through automation. Financing with debt also avoids diluting equity, which helps ROE."},
+{id:106,m:8,q:"A company's total asset turnover fell from 1.5 to 0.9 over three years while sales stayed flat. What is the most likely cause?",o:["The asset base grew without producing more sales","Profit margins rose","Receivables were collected faster","Debt was paid off"],c:0,e:"TAT = sales ÷ assets. Flat sales + falling TAT → ASSETS grew (new equipment, for example) without generating more sales."},
+{id:107,m:8,q:"A firm's average collection period rose from 30 to 55 days. What is the main concern?",o:["More cash is tied up in receivables, weakening liquidity","Profit margins improved","Inventory is selling faster","Debt has decreased"],c:0,e:"Slower collections = cash stuck in receivables = weaker LIQUIDITY. The fix is tighter credit terms or stronger collections."},
+{id:108,m:8,q:"A firm's TIE ratio has fallen well below its industry average. How will lenders most likely react?",o:["Offer lower interest rates","View it as riskier and charge higher rates or deny credit","Ignore it","Ask for a higher P/E"],c:1,e:"Low TIE = earnings barely cover interest → higher default risk → higher borrowing costs."},
+
+// ── S3 · Topic 9: TVM & lump sums ──
+{id:109,m:9,q:"What does the time value of money (TVM) mean?",o:["A dollar today is worth more than a dollar in the future","A dollar in the future is worth more than a dollar today","Money has the same value at all times","Only inflation affects the value of money"],c:0,e:"Core TVM idea: a dollar TODAY is worth MORE because it can be invested to earn interest."},
+{id:110,m:9,q:"Which is NOT one of the three reasons a dollar today is worth more than a dollar tomorrow?",o:["Uncertainty or risk about the future cash flow","Preference for present consumption over future consumption","Inflation reducing purchasing power","Future dollars are always taxed at a higher rate"],c:3,e:"The three reasons: RISK/uncertainty, preference for PRESENT CONSUMPTION, and INFLATION."},
+{id:111,m:9,q:"An employee makes a one-time deposit of $5,000 into a company-sponsored retirement account. Which term and rate combination provides the greatest retirement savings?",o:["$5,000 for 25 years, earning 6%","$5,000 for 30 years, earning 6%","$5,000 for 25 years, earning 8%","$5,000 for 30 years, earning 8%"],c:3,e:"FV grows with BOTH a higher rate AND more time. The longest term at the highest rate wins."},
+{id:112,m:9,q:"A homebuilder uses all of the firm's available cash to pay annual bonuses to employees. Which example illustrates an opportunity cost to the homebuilder?",o:["Inability to raise home prices to reflect the additional cost of operations","Inability to pay bonuses over last year's level to employees","Inability to take a cash discount from a key supplier by paying early","Inability to retain qualified employees who are dissatisfied with their bonus"],c:2,e:"PA MISS (Q47). Opportunity cost = the BENEFIT GIVEN UP because the cash went elsewhere. With no cash left, the firm FORGOES the early-payment discount. Raising home prices (your pick) has nothing to do with how the cash was used."},
+{id:113,m:9,q:"What is an opportunity cost?",o:["The accounting cost of an asset","The value of the next-best alternative given up when a choice is made","A cost already incurred that can't be recovered","The interest paid on debt"],c:1,e:"Opportunity cost = the value of the BEST ALTERNATIVE you gave up."},
+{id:114,m:9,q:"A company keeps $2,000,000 in a non-interest checking account instead of a money market fund paying 5%. What is the annual opportunity cost?",o:["$0","$10,000","$100,000","$2,000,000"],c:2,e:"Forgone interest = $2,000,000 × 5% = $100,000 per year."},
+{id:115,m:9,q:"A restaurant chain is offered $2 million to sign an exclusive partnership, paid in three years. The supplier also proposed $1 million for a 2-year agreement. What does the chain need to calculate to compare the contracts, assuming the same interest rate?",o:["Future value of $1 million paid in 3 years, and future value of $2 million paid in 2 years","Future value of $2 million paid in 3 years, and future value of $1 million paid in 2 years","Present value of $1 million paid in 3 years, and present value of $2 million paid in 2 years","Present value of $2 million paid in 3 years, and present value of $1 million paid in 2 years"],c:3,e:"Different TIMING → bring both amounts to TODAY (present value), matching each amount to ITS OWN year: $2M ↔ 3 years, $1M ↔ 2 years."},
+{id:116,m:9,q:"At a 6% discount rate, what is the present value of $2,000,000 received in 3 years?",o:["$1,679,239","$1,780,000","$1,886,792","$2,382,032"],c:0,e:"PV = 2,000,000 ÷ 1.06³ = 2,000,000 ÷ 1.191016 = $1,679,239. $2,382,032 is the FUTURE value (wrong direction); $1,886,792 discounts only one year."},
+{id:117,m:9,q:"You deposit $10,000 today at 6% compounded annually. How much will you have in 5 years?",o:["$13,000","$13,382","$7,473","$16,105"],c:1,e:"FV = 10,000 × 1.06⁵ = 10,000 × 1.338226 = $13,382. $13,000 ignores compounding (simple interest); $7,473 is a present value."},
+{id:118,m:9,q:"How much must be invested today at 7% to have $50,000 in 4 years?",o:["$36,000","$38,145","$46,729","$65,540"],c:1,e:"PV = 50,000 ÷ 1.07⁴ = 50,000 ÷ 1.310796 = $38,145."},
+{id:119,m:9,q:"All else equal, what happens to the present value of a future amount when the discount rate increases?",o:["It increases","It decreases","It stays the same","It doubles"],c:1,e:"Higher rate = heavier discounting = LOWER PV. (A higher rate gives a HIGHER FV.)"},
+{id:120,m:9,q:"Mike wins $100,000 and can take it today or in one year. If he takes it today and deposits it at 2%, what will he have after one year?",o:["$100,000","$100,200","$102,000","$120,000"],c:2,e:"100,000 × 1.02 = $102,000. The extra $2,000 is the time value of receiving money sooner."},
+{id:121,m:9,q:"When should you use PRESENT value rather than future value?",o:["When you know today's amount and want its value later","When you know a future amount and want its equivalent value today","When comparing two amounts received on the same date","When there is no interest rate"],c:1,e:"PV = DISCOUNTING a future amount back to today. FV = COMPOUNDING today's amount forward."},
+{id:122,m:9,q:"All else equal, which compounding frequency produces the largest future value?",o:["Annual","Semiannual","Quarterly","Monthly"],c:3,e:"More frequent compounding = interest earns interest sooner = higher FV."},
+
+// ── S3 · Topic 10: Annuities / streams of payments ──
+{id:123,m:10,q:"Why is the present value of an annuity important for retirement planning?",o:["It determines how much needs to be saved today to meet future financial goals","It calculates the future interest rates required for retirement","It provides a fixed future income regardless of market conditions","It ensures that all future withdrawals are tax-free"],c:0,e:"PV of an annuity tells you what a stream of future payments (like retirement income) is worth TODAY, which is the amount you need."},
+{id:124,m:10,q:"Whole Pine will pay its consultant $15,000 per year for 6 years and wants the future value of this annuity at 5%. Which factors influence this payment plan's FVIFA calculation?",o:["The total sum of all payments over 6 years ($15,000 × 6) and the interest rate (5%)","The total sum of all payments over 6 years ($15,000 × 6) and the payment amount ($15,000)","The number of payments (6), interest rate (5%), and payment amount ($15,000)","The interest rate (5%), the payment amount ($15,000), and the present value of the annuity (0)"],c:2,e:"PA MISS (Q50). FV of an annuity needs n (6 payments), r (5%), and PMT ($15,000). Adding up the payments ($90,000, your pick) IGNORES compounding, which is never right in TVM. (Strictly, the factor uses r and n; PMT multiplies it, but the exam key lists all three.)"},
+{id:125,m:10,q:"Using Whole Pine's plan ($15,000 per year, 6 years, 5%), what is the future value of the payments?",o:["$90,000","$94,500","$102,029","$76,135"],c:2,e:"FVIFA = (1.05⁶ − 1) ÷ 0.05 = 6.8019. FV = 15,000 × 6.8019 = $102,029. $90,000 = no interest; $76,135 = present value."},
+{id:126,m:10,q:"Which example shows an annuity?",o:["Annual insurance premium of $1,200 that covers 12 consecutive months","Bi-annual magazine subscription of $240 that covers a 24-month period","Credit card payments of equal amounts at 21% APR to retire an outstanding balance","Credit card payments of varying amounts paid based on prior month purchases"],c:2,e:"PA MISS (Q51). ANNUITY = a SERIES of EQUAL payments at REGULAR intervals. The insurance premium and magazine subscription (your pick) are each ONE payment. Varying amounts aren't equal."},
+{id:127,m:10,q:"Which is an annuity?",o:["A one-time lottery lump sum","A car loan repaid with 60 equal monthly payments","Monthly utility bills that vary with usage","A single deposit into a savings account"],c:1,e:"60 EQUAL payments at REGULAR intervals = annuity."},
+{id:128,m:10,q:"Which factor increases the future value interest factor for an annuity (FVIFA)?",o:["A lower interest rate","A smaller number of payments","A higher interest rate","A decrease in the payment size"],c:2,e:"PA MISS (Q52). FVIFA grows with a HIGHER rate and MORE payments. Payment size doesn't change the FACTOR at all (it multiplies the factor). Fewer payments (your pick) = less compounding = smaller factor."},
+{id:129,m:10,q:"Which change INCREASES the present value interest factor for an annuity (PVIFA)?",o:["A lower interest rate","A higher interest rate","Fewer payments","A smaller payment amount"],c:0,e:"PV moves OPPOSITE the rate: lower rate = less discounting = higher PVIFA. (FVIFA moves WITH the rate.) Payment size never changes a factor."},
+{id:130,m:10,q:"What is the present value of $1,000 received at the end of each year for 5 years at 8%?",o:["$3,993","$5,000","$5,867","$4,630"],c:0,e:"PVIFA = [1 − 1.08⁻⁵] ÷ 0.08 = 3.9927. PV = 1,000 × 3.9927 = $3,993. $5,867 is the FUTURE value."},
+{id:131,m:10,q:"What is an annuity due?",o:["An annuity with payments at the beginning of each period","An annuity with payments of varying size","An annuity with no interest","A single lump-sum payment"],c:0,e:"Annuity DUE = payments at the BEGINNING of each period (like rent). Ordinary annuity = END of period. An annuity due is worth slightly more because each payment earns one extra period."},
+{id:132,m:10,q:"A borrower wants to know the equal monthly payment on a $300,000 mortgage. Which TVM concept applies?",o:["Future value of a lump sum","Present value of an annuity","Future value of an annuity","Payback period"],c:1,e:"The loan amount is TODAY's value (PV) of the stream of equal payments → present value of an annuity, solved for the payment."},
+{id:133,m:10,q:"A retiree wants to know how much a 20-year stream of equal annual pension payments is worth today. What should be calculated?",o:["Future value of an annuity","Present value of an annuity","Future value of a lump sum","Profitability index"],c:1,e:"Stream of equal payments + value TODAY = PV of an annuity."},
+
+// ── S3 · Topic 11: NPV, IRR, payback ──
+{id:134,m:11,q:"Freedom Rock Bicycles projects equipment cash inflows of $50,000, $80,000, $60,000, $45,000, and $70,000 in years 1–5 and calculates NPV at 8%. How does NPV assess the equipment's annual cash inflows?",o:["By adding all annual cash flows ($305,000) and discounting that value by 8%","By adding all annual cash flows ($305,000) and discounting by 5 periods at 8%","By calculating the future value of each annual cash inflow for the appropriate number of periods at 8%, then adding those together","By calculating the present value of each annual cash inflow for the appropriate number of periods at 8%, then adding those together"],c:3,e:"PA MISS (Q53). NPV discounts EACH cash flow back to TODAY for ITS OWN year (year 1 ÷ 1.08¹, year 2 ÷ 1.08², …), sums them, then subtracts the investment. 'Present' is in the name, so future value (your pick) is never it."},
+{id:135,m:11,q:"Freedom Rock's inflows ($50k, $80k, $60k, $45k, $70k in years 1–5) have a present value of about $243,230 at 8%. If the equipment costs $220,000, what are the NPV and the decision?",o:["NPV ≈ $85,000; accept","NPV ≈ $23,230; accept","NPV ≈ −$23,230; reject","NPV ≈ $243,230; accept"],c:1,e:"NPV = PV of inflows − cost = 243,230 − 220,000 ≈ $23,230 > 0 → ACCEPT. $85,000 = 305,000 − 220,000, which ignores TVM."},
+{id:136,m:11,q:"Why might a business prefer using an internal rate of return (IRR) over net present value (NPV) for evaluating investments?",o:["IRR requires more detailed calculations than NPV","IRR gives a higher value than NPV","IRR provides a single percentage, which makes comparing dissimilar investments easier","IRR considers the time value of money, while NPV does not"],c:2,e:"PA MISS (Q54). IRR's appeal = one intuitive PERCENTAGE to compare with a hurdle rate or other projects. Your pick is FALSE: BOTH IRR and NPV use the time value of money. Payback is the method that doesn't."},
+{id:137,m:11,q:"Which financial metric should be used alongside the payback period to provide a more comprehensive investment evaluation?",o:["Annual cash inflows","Initial investment cost","Net present value","Payback duration"],c:2,e:"Payback ignores TVM and later cash flows → pair it with NPV, which covers both."},
+{id:138,m:11,q:"A firm is considering investing in delivery vehicles. The project has a required rate of return of 10% and an IRR of 12%. Should the firm accept it?",o:["No, because the initial investment is too high to cover the required return","Yes, because the IRR of 12% exceeds the required return of 10%","Yes, because the 12% IRR means the project is low risk","No, because IRR is not an appropriate metric for high-risk assets such as vehicles"],c:1,e:"PA MISS (Q56). IRR RULE: IRR > required return (hurdle) → ACCEPT. That's all the question tests. IRR says nothing about risk level, and it works for any asset type."},
+{id:139,m:11,q:"A project's IRR is 9% and the company's hurdle rate is 11%. What should the company do?",o:["Accept, because IRR is positive","Reject, because IRR is below the hurdle rate","Accept, because 9% beats inflation","Accept only if payback is under 3 years"],c:1,e:"IRR < hurdle → REJECT. A positive IRR isn't enough; it must beat the required return."},
+{id:140,m:11,q:"What is the advantage of using net present value (NPV) to evaluate investment opportunities?",o:["It simplifies the calculation of total revenue for the company","It is based on forecasts of economic trends of the market","It accounts for the time value of money, providing a more accurate analysis","It measures the taxable income and tax liabilities of an investment"],c:2,e:"PA MISS (Q57). NPV's key advantage: it accounts for TVM and shows value created in today's dollars. It has nothing to do with total revenue (your pick)."},
+{id:141,m:11,q:"Project A requires $250,000 and has an IRR of 8%. Project B requires $400,000, has a 9-year life, and an NPV of $220,000 when discounted at 10%. The firm's cost of capital is 9%. How should it proceed if it can afford both?",o:["Invest in Project A only","Invest in Project B only","Invest in both Project A and Project B","Invest in neither project"],c:1,e:"PA MISS (Q58). A: IRR 8% < 9% cost of capital → REJECT (your pick). B: NPV is positive even at 10%, so it's even MORE positive at 9% → ACCEPT. Check EACH project against its own rule."},
+{id:142,m:11,q:"Project X has an IRR of 14%. Project Y has an NPV of −$15,000 at the firm's 10% cost of capital. The firm can afford both. What should it do?",o:["Invest in X only","Invest in Y only","Invest in both","Invest in neither"],c:0,e:"X: 14% > 10% → accept. Y: negative NPV → reject."},
+{id:143,m:11,q:"Why is comparing the internal rate of return (IRR) to the hurdle rate important?",o:["To assess the risk to the company over the project's life","To calculate the profit margin of the project accurately","To determine if a project generates a return higher than the required return","To ensure that the investment's return is the best option available"],c:2,e:"Hurdle rate = minimum required return. IRR above it means the project clears the bar."},
+{id:144,m:11,q:"What is the internal rate of return (IRR)?",o:["The discount rate at which a project's NPV equals zero","The firm's cost of debt","The time needed to recover the investment","The ratio of PV of inflows to the investment"],c:0,e:"IRR = the rate that makes NPV = 0 (the project's own compounded annual return). The last option describes the profitability index."},
+{id:145,m:11,q:"A $100,000 project returns $40,000 in year 1, $50,000 in year 2, and $30,000 in year 3. What is its payback period?",o:["2.0 years","2.33 years","2.5 years","3.0 years"],c:1,e:"After year 2: 40k + 50k = 90k recovered, 10k left. Year 3 brings 30k → 10 ÷ 30 = 0.33. Payback = 2.33 years."},
+{id:146,m:11,q:"Which statement about the payback period is TRUE?",o:["It discounts cash flows at the cost of capital","It ignores the time value of money","It measures total value created","It always agrees with NPV"],c:1,e:"Payback just counts years to recover the investment, with NO TVM. It's still a useful quick check."},
+{id:147,m:11,q:"A project's NPV is exactly $0. What does that mean?",o:["The project loses money","The project earns exactly the required rate of return","The project's IRR is zero","The project has no cash flows"],c:1,e:"NPV = 0 → the project earns EXACTLY the discount rate (IRR = required return). Positive NPV = earns more than required."},
+{id:148,m:11,q:"A $100,000 project generates $60,000 per year for 2 years. At a 10% discount rate, what is its NPV?",o:["$20,000","$4,132","−$4,132","$9,091"],c:1,e:"PV = 60,000 ÷ 1.10 + 60,000 ÷ 1.21 = 54,545 + 49,587 = 104,132. NPV = 104,132 − 100,000 = $4,132 → accept. $20,000 ignores TVM."},
+{id:149,m:11,q:"For two mutually exclusive projects, NPV favors Project A while IRR favors Project B. Which should be chosen?",o:["Project A, because NPV measures the dollar value created","Project B, because IRR is a percentage","Neither project","Both projects"],c:0,e:"When they conflict, go with NPV. It directly measures the wealth added in today's dollars."},
+{id:150,m:11,q:"Which capital budgeting method does NOT consider the time value of money?",o:["Net present value","Internal rate of return","Payback period","Profitability index"],c:2,e:"Payback is the only one that ignores TVM. NPV, IRR, and PI all discount cash flows."},
+
+// ── S4 · Topic 12: Raising capital ──
+{id:151,m:12,q:"A mid-sized manufacturer plans to expand production capacity. Which situation might cause the company to use retained earnings to fund the expansion?",o:["When it decides to pay dividends to shareholders before reinvesting profits","When it needs to borrow money from external lenders to secure financing","When it prefers to use internal funds instead of seeking external funding options","When it plans to sell company assets to raise the necessary capital"],c:2,e:"PA MISS (Q63). RETAINED EARNINGS = past profits kept in the business = INTERNAL funds. Selling assets (your pick) is a different source, not retained earnings."},
+{id:152,m:12,q:"A regional food and beverage company faces strong competitive pressure in a rapidly consolidating industry. Why might this company need new capital?",o:["To pay dividends to current-year shareholders","To divest of low-margin products to increase margins","To fund expansion and new product development","To increase employee wages and benefits to retain talent"],c:2,e:"PA MISS (Q64). A consolidating industry means competitors are getting bigger, so the firm needs capital to GROW (expand, develop products) and keep up. Divesting (your pick) SHRINKS the business and generates cash; it doesn't require new capital."},
+{id:153,m:12,q:"A renewable energy company wants to raise capital to acquire a smaller competitor serving new markets. Which factor would make issuing additional common stock the best financing option?",o:["Debt is less cost-effective than stock","Existing owners want to retain their same level of ownership","Projected high returns are likely to attract new investors","The company is highly leveraged"],c:2,e:"PA MISS (Q65). A stock issue works best when investors WANT to buy, and high projected returns attract them. Owners keeping their ownership level points to DEBT. Debt is usually CHEAPER than stock. 'Highly leveraged' (your pick) is a reason to avoid more debt, but the exam's key is the factor that makes EQUITY itself attractive."},
+{id:154,m:12,q:"Why might a company be hesitant to raise new debt capital?",o:["Issuing new debt could help fund a temporary cash-flow shortfall without increasing financial risk","Raising debt might provide an opportunity to increase shareholder dividends","Taking on additional debt could increase default risk and raise its cost of capital, making future borrowing more expensive","Raising capital would let the company fund projects to reduce operating expenses"],c:2,e:"PA MISS (Q66). The question asks for a REASON TO HESITATE, meaning a downside. More debt = more required payments = higher DEFAULT RISK and higher future borrowing costs. The others are benefits, and 'without increasing financial risk' (your pick) is false: new debt always adds risk."},
+{id:155,m:12,q:"What are the three main sources of capital for a business?",o:["Equity, debt, and retained earnings","Revenue, expenses, and profit","Stocks, options, and futures","Grants, donations, and taxes"],c:0,e:"EQUITY (sell ownership), DEBT (borrow), RETAINED EARNINGS (reinvest past profits)."},
+{id:156,m:12,q:"What is the main drawback of raising capital through equity?",o:["Required interest payments","It dilutes existing owners' ownership and control","It increases default risk","It must be repaid at maturity"],c:1,e:"New shares mean existing owners own a SMALLER percentage. There is no required repayment, though."},
+{id:157,m:12,q:"What is a key advantage of debt financing over equity?",o:["No repayment is required","Interest is tax-deductible and ownership is not diluted","It lowers default risk","Lenders gain voting rights"],c:1,e:"Debt: interest is TAX-DEDUCTIBLE and owners keep CONTROL. Downside: required payments and default risk."},
+{id:158,m:12,q:"When in their life cycle do firms need capital?",o:["Only at start-up","Only during rapid growth","Throughout the life cycle: start-up, growth, and maturity","Only when in financial distress"],c:2,e:"Capital is needed across the WHOLE life cycle: launching, growing, replacing equipment, acquiring, and so on."},
+{id:159,m:12,q:"A two-year-old tech startup with no profits needs $5 million to scale. Which source is most likely available?",o:["Retained earnings","A bank loan based on steady cash flow","Equity from venture capital investors","AAA-rated corporate bonds"],c:2,e:"No profits = no retained earnings, and lenders want steady cash flow. Startups usually raise EQUITY (venture capital)."},
+{id:160,m:12,q:"A consistently profitable company wants to fund a new warehouse without adding debt or issuing shares. Which source should it use?",o:["Retained earnings","Common stock","Corporate bonds","Preferred stock"],c:0,e:"No debt + no new shares = INTERNAL funds = retained earnings."},
+
+// ── S4 · Topic 13: Cost of capital ──
+{id:161,m:13,q:"How is the cost of capital typically measured?",o:["As a percentage return","In dollar amounts annually","Based on company size","By tax rate differences"],c:0,e:"Cost of capital is a RATE (%): the return required by the providers of capital."},
+{id:162,m:13,q:"A construction firm is entirely financed through loans and bonds rather than equity. What can be determined about the firm's cost of capital?",o:["It is based on total revenue, which determines borrowing capacity","It equals dividends paid, as the company must satisfy its debt holders","It is higher than the tax rate, reflecting obligations to creditors","It is equal to the after-tax cost of debt, as no equity financing costs are involved"],c:3,e:"PA MISS (Q61). Overall cost of capital = weighted mix of debt and equity costs. With 100% DEBT, equity's weight is zero → cost of capital = AFTER-TAX COST OF DEBT. Revenue (your pick) doesn't determine it."},
+{id:163,m:13,q:"Why might a high beta increase the cost of equity?",o:["It reduces investor concerns, which leads to higher demand","It indicates higher risk, which requires higher returns","It reflects high sales revenue","It improves profit predictability"],c:1,e:"PA MISS (Q62). BETA = volatility relative to the market = RISK. More risk → investors demand more return → higher cost of equity. A high beta INCREASES investor concern (your pick said the reverse)."},
+{id:164,m:13,q:"What is the cost of equity?",o:["The interest rate on the firm's loans","The rate of return investors expect for owning the company's stock","The dividend amount paid last year","The firm's tax rate"],c:1,e:"Cost of equity = investors' EXPECTED return. Not guaranteed, but it's what they require to invest."},
+{id:165,m:13,q:"A company pays 8% interest on its debt and has a 25% tax rate. What is its after-tax cost of debt?",o:["2%","6%","8%","10%"],c:1,e:"After-tax cost of debt = 8% × (1 − 0.25) = 6%. Interest is tax-deductible, which lowers the true cost."},
+{id:166,m:13,q:"A firm is financed 40% with debt (after-tax cost 6%) and 60% with equity (cost 12%). What is its weighted average cost of capital (WACC)?",o:["9.0%","9.6%","10.2%","18.0%"],c:1,e:"WACC = 0.40 × 6% + 0.60 × 12% = 2.4% + 7.2% = 9.6%."},
+{id:167,m:13,q:"The risk-free rate is 3%, the expected market return is 9%, and a stock's beta is 1.5. What is its cost of equity using CAPM?",o:["9.0%","10.5%","12.0%","13.5%"],c:2,e:"CAPM = 3% + 1.5 × (9% − 3%) = 3% + 9% = 12%."},
+{id:168,m:13,q:"Why is debt usually a cheaper source of capital than equity?",o:["Debt holders take on more risk","Interest is tax-deductible and debt holders have priority claims, so they accept lower returns","Debt never has to be repaid","Equity holders receive guaranteed returns"],c:1,e:"Lenders get paid first and interest is deductible → debt costs less than equity."},
+{id:169,m:13,q:"A stock with a beta of 0.6 is:",o:["More volatile than the market, raising its cost of equity","Less volatile than the market, lowering its cost of equity","Exactly as volatile as the market","Risk-free"],c:1,e:"Beta below 1 = less volatile than the market (beta = 1) → lower risk → lower required return."},
+{id:170,m:13,q:"How does a firm use its cost of capital in capital budgeting?",o:["As the hurdle (discount) rate projects must earn","As the payback cutoff","To set employee salaries","To calculate the current ratio"],c:0,e:"Cost of capital = MINIMUM required return, used as the discount rate for NPV and the hurdle for IRR."},
+{id:171,m:13,q:"What is the overall cost of capital for a business?",o:["The cost of debt only","The combined cost of debt and equity used to fund the firm","The firm's total interest payments in dollars","The market price of its stock"],c:1,e:"Overall cost of capital blends the cost of DEBT and the cost of EQUITY, weighted by how much of each the firm uses."},
+
+// ── S4 · Topic 14: Capital budgeting & allocating capital ──
+{id:172,m:14,q:"What is a limitation of the payback method when evaluating a long-term investment?",o:["It can be complicated to apply to a long-term investment","It cannot be applied to investments with uncertain cash flows","It ignores cash flows after the initial investment is recovered","It ignores the importance of recovering capital quickly"],c:2,e:"PA MISS (Q67). Payback STOPS COUNTING once the investment is recovered, so a long-term project with big later cash flows looks worse than it is. Payback is SIMPLE; that's its strength, not a limitation (your pick)."},
+{id:173,m:14,q:"A real estate developer calculates an NPV of $500,000 for a proposed residential project. What does this NPV indicate?",o:["The project should be undertaken because it is expected to generate more value than it costs","The project should be canceled because the NPV has not achieved a benchmark","The project has high risk based on market assumptions","The project will increase debt significantly"],c:0,e:"Positive NPV = creates value above the required return → ACCEPT."},
+{id:174,m:14,q:"Which project type would likely require a capital budgeting decision?",o:["Ordering monthly office supplies","Paying annual employee bonuses","Managing quarterly inventory restocks","Expanding to a new market"],c:3,e:"PA MISS (Q69). Capital budgeting = MAJOR, LONG-TERM investments (new markets, acquisitions, equipment replacement). Inventory restocking (your pick) is routine working-capital management, even when it happens quarterly."},
+{id:175,m:14,q:"Which decision would require capital budgeting analysis?",o:["Paying the monthly utility bill","Replacing outdated machinery with a $2 million automated production line","Restocking inventory for next week","Processing payroll"],c:1,e:"Large, long-lived investment → capital budgeting. The others are routine operating expenses."},
+{id:176,m:14,q:"A project evaluated at a 10% cost of capital shows an NPV of −$3,900. What does this indicate?",o:["The project is not profitable at the required return and should be rejected","The project breaks even and should be considered","The project's risk level is too high to proceed","The project should be accepted"],c:0,e:"Negative NPV = doesn't earn the required return → REJECT."},
+{id:177,m:14,q:"What does the profitability index (PI) measure?",o:["Years to recover the investment","Present value of benefits received per dollar invested","The project's percentage return","Total accounting profit"],c:1,e:"PI = PV of future cash flows ÷ initial investment."},
+{id:178,m:14,q:"A project costs $100,000 and the present value of its future cash flows is $130,000. What are its PI and the decision?",o:["PI = 0.77; reject","PI = 1.30; accept","PI = 30; accept","PI = 1.30; reject"],c:1,e:"PI = 130,000 ÷ 100,000 = 1.30. PI > 1 → ACCEPT (equivalent to NPV > 0)."},
+{id:179,m:14,q:"A project has a profitability index of 0.85. What should the firm do?",o:["Accept, because PI is positive","Reject, because it returns less than $1 of present value per $1 invested","Accept if payback is short","Double the investment"],c:1,e:"PI < 1 ↔ NPV < 0 → REJECT."},
+{id:180,m:14,q:"A firm has a limited capital budget and several positive-NPV projects. Which tool helps rank them to get the most value per dollar invested?",o:["Payback period","Profitability index","Current ratio","P/E ratio"],c:1,e:"With limited capital, rank by PI: value created per dollar invested."},
+{id:181,m:14,q:"What is capital budgeting?",o:["Preparing the annual operating budget","The process of evaluating and deciding on major investments or expenditures","Setting employee pay budgets","Calculating cost of goods sold"],c:1,e:"Capital budgeting = evaluating MAJOR long-term investments."},
+{id:182,m:14,q:"A small family business is deciding whether to replace outdated equipment with more efficient machinery. Which tool best shows the dollar value this decision would create in today's terms?",o:["Net present value","Payback period","Average collection period","Debt-to-equity ratio"],c:0,e:"NPV = net wealth created, measured in TODAY's dollars."},
+{id:183,m:14,q:"What is the main purpose of allocating capital efficiently?",o:["To maximize shareholder value and achieve long-term goals","To minimize the number of projects","To avoid all debt","To maximize short-term revenue"],c:0,e:"Efficient capital allocation maximizes SHAREHOLDER VALUE, maintains financial control, and supports long-term goals."},
+{id:184,m:14,q:"A public company is considering acquiring a mid-sized private competitor to capture production synergies. What type of decision is this?",o:["Working capital decision","Capital budgeting decision","Dividend decision","Monetary policy decision"],c:1,e:"Acquisitions are major long-term investments → capital budgeting."}
+];
+
+var TOPICS={
+ 1:{s:1,k:"Finance basics"}, 2:{s:1,k:"Instruments"}, 3:{s:1,k:"Markets"}, 4:{s:1,k:"Economy"}, 5:{s:1,k:"Ethics"},
+ 6:{s:2,k:"Why ratios"}, 7:{s:2,k:"Ratio types"}, 8:{s:2,k:"Ratio decisions"},
+ 9:{s:3,k:"Lump sums"}, 10:{s:3,k:"Annuities"}, 11:{s:3,k:"NPV, IRR, payback"},
+ 12:{s:4,k:"Raising capital"}, 13:{s:4,k:"Cost of capital"}, 14:{s:4,k:"Capital budgeting"}
+};
+var SECTIONS={1:{n:"Systems & structure",w:20},2:{n:"Financial ratios",w:25},3:{n:"Time value of money",w:14},4:{n:"Capital budgeting",w:11}};
+
+// Exact questions missed on PA #1
+var PA_EXACT={1:1,15:1,23:1,45:1,62:1,64:1,68:1,71:1,74:1,77:1,90:1,93:1,95:1,98:1,100:1,112:1,124:1,126:1,128:1,134:1,136:1,138:1,140:1,141:1,151:1,152:1,153:1,154:1,162:1,163:1,172:1,174:1};
+// PA gap drill = exact misses + close variants on the same concept
+var PRE_OA_IDS={};
+[1,2,15,16,17,23,24,25,45,46,47,62,64,68,69,71,74,76,77,79,90,91,93,94,95,98,99,100,101,112,113,114,115,124,126,127,128,129,134,135,136,138,139,140,141,142,150,151,152,153,154,162,163,172,174,175].forEach(function(i){PRE_OA_IDS[i]=1;});
+
+var STORE_KEY="d775-fin-v1";
+var LETTERS=["A","B","C","D"];
+var answers={}, history={}, order=[], optPerm={}, curFilter="all", selectedMods={all:true};
+var mockIds=[], mockStart=null, mockEnd=null, openPanel=null, resetConfirming=false;
+
+function byId(id){ for(var i=0;i<Q.length;i++){ if(Q[i].id===id) return Q[i]; } return null; }
+function shuffle(arr){ var a=arr.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function allIds(){ return Q.map(function(x){return x.id;}); }
+function makePerms(){ optPerm={}; Q.forEach(function(q){ optPerm[q.id]=shuffle(q.o.map(function(_,i){return i;})); }); }
+function ensurePerms(){ Q.forEach(function(q){ var p=optPerm[q.id]; if(!p||p.length!==q.o.length) optPerm[q.id]=shuffle(q.o.map(function(_,i){return i;})); }); }
+
+function loadState(){
+  try{
+    var s=localStorage.getItem(STORE_KEY);
+    if(s){
+      var d=JSON.parse(s);
+      history=d.history||{}; answers=d.answers||{}; optPerm=d.optPerm||{};
+      order=d.order||shuffle(allIds());
+      if(d.selectedMods) selectedMods=d.selectedMods;
+      if(d.curFilter) curFilter=d.curFilter;
+      mockIds=d.mockIds||[]; mockStart=d.mockStart||null; mockEnd=d.mockEnd||null;
+    } else { order=shuffle(allIds()); makePerms(); }
+  }catch(e){ order=shuffle(allIds()); makePerms(); }
+  var known={}; order.forEach(function(i){known[i]=1;});
+  Q.forEach(function(q){ if(!known[q.id]) order.push(q.id); });
+  ensurePerms();
+}
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify({history:history,answers:answers,order:order,optPerm:optPerm,selectedMods:selectedMods,curFilter:curFilter,mockIds:mockIds,mockStart:mockStart,mockEnd:mockEnd})); }catch(e){}
+}
+
+function getTag(id){
+  var h=history[id];
+  if(!h||h.t===0) return {label:"🆕 New",cls:"tag tag-new"};
+  var p=h.c/h.t;
+  if(p>=0.8) return {label:"✅ Mastered "+h.c+"/"+h.t,cls:"tag tag-mastered"};
+  if(p>=0.5) return {label:"⚠️ Needs work "+h.c+"/"+h.t,cls:"tag tag-needs"};
+  return {label:"🔴 Weak "+h.c+"/"+h.t,cls:"tag tag-weak"};
+}
+
+function buildMock(){
+  var ids=[];
+  [1,2,3,4].forEach(function(s){
+    var pool=shuffle(Q.filter(function(q){return TOPICS[q.m].s===s;}).map(function(q){return q.id;}));
+    ids=ids.concat(pool.slice(0,SECTIONS[s].w));
+  });
+  mockIds=shuffle(ids);
+  mockIds.forEach(function(id){ delete answers[id]; optPerm[id]=shuffle(byId(id).o.map(function(_,i){return i;})); });
+  mockStart=null; mockEnd=null;
+}
+
+function getFiltered(){
+  if(curFilter==="mock"){ return mockIds.map(byId).filter(Boolean); }
+  var res=[], useAll=selectedMods.all===true;
+  for(var i=0;i<order.length;i++){
+    var q=byId(order[i]); if(!q) continue;
+    if(!useAll && !selectedMods[String(q.m)]) continue;
+    var h=history[q.id];
+    if(curFilter==="weak"){ if(!h||h.t===0) continue; if(h.c/h.t>=0.8) continue; }
+    else if(curFilter==="unseen"){ if(h&&h.t>0) continue; }
+    else if(curFilter==="preoa"){ if(!PRE_OA_IDS[q.id]) continue; }
+    res.push(q);
+  }
+  return res;
+}
+
+function fmtTime(ms){ var s=Math.max(0,Math.floor(ms/1000)); var m=Math.floor(s/60); s=s%60; return m+":"+(s<10?"0":"")+s; }
+function tick(){
+  var wrap=document.getElementById("timeWrap");
+  if(curFilter!=="mock"){ wrap.style.display="none"; return; }
+  wrap.style.display="";
+  var el=document.getElementById("statTime");
+  if(!mockStart){ el.textContent="0:00"; return; }
+  el.textContent=fmtTime((mockEnd||Date.now())-mockStart);
+}
+
+function buildChips(){
+  var html='<div class="chip-row"><button class="mchip all" data-act="mod" data-v="all">All topics</button></div>';
+  [1,2,3,4].forEach(function(s){
+    html+='<div class="chip-row"><button class="secbtn" data-act="sec" data-v="'+s+'" title="'+SECTIONS[s].n+'">S'+s+'</button>';
+    Object.keys(TOPICS).forEach(function(k){ if(TOPICS[k].s===s) html+='<button class="mchip" data-act="mod" data-v="'+k+'">'+TOPICS[k].k+'</button>'; });
+    html+='</div>';
+  });
+  document.getElementById("chips").innerHTML=html;
+}
+function updateChipUI(){
+  var chips=document.querySelectorAll(".mchip");
+  for(var i=0;i<chips.length;i++){
+    var v=chips[i].getAttribute("data-v");
+    var on = selectedMods.all ? v==="all" : !!selectedMods[v];
+    chips[i].classList.toggle("on",on);
+  }
+  var secs=document.querySelectorAll(".secbtn");
+  for(var j=0;j<secs.length;j++){
+    var s=+secs[j].getAttribute("data-v");
+    var all=!selectedMods.all && Object.keys(TOPICS).filter(function(k){return TOPICS[k].s===s;}).every(function(k){return selectedMods[k];});
+    secs[j].classList.toggle("on",all);
+  }
+  var dim=curFilter==="mock";
+  document.getElementById("chips").style.opacity=dim?"0.45":"1";
+}
+function noneSelected(){ for(var k in selectedMods){ if(selectedMods[k]) return false; } return true; }
+function toggleMod(m){
+  if(m==="all"){ selectedMods = selectedMods.all ? {} : {all:true}; if(noneSelected()) selectedMods={all:true}; }
+  else{
+    if(selectedMods.all) selectedMods={};
+    if(selectedMods[m]) delete selectedMods[m]; else selectedMods[m]=true;
+    if(noneSelected()) selectedMods={all:true};
+  }
+}
+function toggleSec(s){
+  if(selectedMods.all) selectedMods={};
+  var keys=Object.keys(TOPICS).filter(function(k){return TOPICS[k].s===s;});
+  var allOn=keys.every(function(k){return selectedMods[k];});
+  keys.forEach(function(k){ if(allOn) delete selectedMods[k]; else selectedMods[k]=true; });
+  if(noneSelected()) selectedMods={all:true};
+}
+
+function updateFilterUI(){
+  ["all","weak","unseen","preoa","mock"].forEach(function(f){ document.getElementById("f-"+f).classList.toggle("on",curFilter===f); });
+  var rb=document.getElementById("resetBtn"); rb.textContent="Reset"; rb.classList.remove("confirm"); resetConfirming=false;
+}
+
+function renderPanels(){
+  document.getElementById("p-pa").classList.toggle("on",openPanel==="pa");
+  document.getElementById("p-f").classList.toggle("on",openPanel==="f");
+  var el=document.getElementById("panels");
+  if(openPanel==="pa"){
+    var secs=[[1,16,20,"Competent"],[2,14,25,"Approaching"],[3,5,14,"Unsatisfactory"],[4,3,11,"Unsatisfactory"]];
+    var bars=secs.map(function(r){
+      var pct=Math.round(r[1]/r[2]*100);
+      var col=r[3]==="Competent"?"var(--ok)":r[3]==="Approaching"?"var(--warn)":"var(--bad)";
+      return '<div class="sec-bar"><div><span class="strong">S'+r[0]+' '+SECTIONS[r[0]].n+'</span> <span>'+r[1]+'/'+r[2]+' ('+pct+'%)</span><div class="bar"><span style="width:'+pct+'%;background:'+col+'"></span></div></div><div class="status" style="color:'+col+'">'+r[3]+'</div></div>';
+    }).join("");
+    el.innerHTML='<div class="panel"><h3>Pre-assessment #1: 38/70 (54%), approaching competency</h3>'+
+      '<div class="sec-bars">'+bars+'</div>'+
+      '<h4>Patterns in your 32 misses</h4><ul>'+
+      '<li><span class="strong">Direction flips.</span> You picked the exact opposite several times: future value instead of present value for NPV, "low leverage" for a high debt ratio, a service firm for the widest quick/current gap, fewer payments raising FVIFA.</li>'+
+      '<li><span class="strong">Ratio names that share a word.</span> Debt-to-equity for return on equity, current ratio for times interest earned, fixed asset turnover as a liquidity ratio. Match the job (profit? interest? turnover?) to the category, not the shared word.</li>'+
+      '<li><span class="strong">TVM myths.</span> "IRR uses time value, NPV doesn\'t" (both do; only payback ignores it). Adding up payments without compounding is never the answer.</li>'+
+      '<li><span class="strong">Reading what\'s asked.</span> "Why hesitant to raise debt?" wants a downside; "opportunity cost" wants the benefit forgone. Your picks were benefits or unrelated effects.</li>'+
+      '<li><span class="strong">Pace.</span> 31 minutes for 70 questions, about 27 seconds each. You have 150 minutes. Most S3 and S4 misses were answerable by slowing down and eliminating.</li>'+
+      '</ul><button class="panel-link" data-act="filter" data-v="preoa">🎯 Drill these gaps</button></div>';
+  } else if(openPanel==="f"){
+    function row(a,b){ return '<div class="frow"><span class="strong">'+a+'</span> = '+b+'</div>'; }
+    el.innerHTML='<div class="panel"><h3>Formula sheet</h3>'+
+      '<h4>Liquidity (short-term bills)</h4><div class="fgrid">'+
+        row("Current ratio","Current assets ÷ Current liabilities")+
+        row("Quick ratio","(Current assets − Inventory) ÷ Current liabilities")+
+        row("Cash ratio","Cash & equivalents ÷ Current liabilities")+
+        row("AR turnover","Sales ÷ Accounts receivable")+
+        row("Avg. collection period","AR ÷ (Sales ÷ 365)")+
+        row("Inventory turnover","COGS ÷ Inventory")+'</div>'+
+      '<h4>Activity (asset efficiency)</h4><div class="fgrid">'+
+        row("Total asset turnover","Sales ÷ Total assets")+
+        row("Fixed asset turnover","Sales ÷ Net fixed assets")+'</div>'+
+      '<h4>Leverage (debt)</h4><div class="fgrid">'+
+        row("Debt-to-assets","Total debt ÷ Total assets")+
+        row("Debt-to-equity","Total debt ÷ Equity")+
+        row("Times interest earned","EBIT ÷ Interest expense")+'</div>'+
+      '<h4>Profitability (income)</h4><div class="fgrid">'+
+        row("Profit margin","Net income ÷ Sales")+
+        row("Operating margin","Operating income ÷ Sales")+
+        row("Return on assets","Net income ÷ Total assets")+
+        row("Return on equity","Net income ÷ Equity")+'</div>'+
+      '<h4>Market (share price)</h4><div class="fgrid">'+
+        row("P/E ratio","Share price ÷ EPS")+'</div>'+
+      '<h4>Time value of money</h4><div class="fgrid">'+
+        row("FV (lump sum)","PV × (1 + r)ⁿ")+
+        row("PV (lump sum)","FV ÷ (1 + r)ⁿ")+
+        row("FVIFA","[(1 + r)ⁿ − 1] ÷ r")+
+        row("PVIFA","[1 − (1 + r)⁻ⁿ] ÷ r")+
+        row("FV of annuity","PMT × FVIFA")+
+        row("PV of annuity","PMT × PVIFA")+'</div>'+
+      '<p style="margin-top:6px">Higher rate → FV up, PV down. More periods → FV up, PV of a lump sum down, PVIFA up. Payment size never changes a factor.</p>'+
+      '<h4>Capital budgeting</h4><div class="fgrid">'+
+        row("NPV","Σ CFₜ ÷ (1 + r)ᵗ − Initial cost; accept if > 0")+
+        row("IRR","Rate where NPV = 0; accept if > hurdle")+
+        row("Payback","Years before recovery + (Unrecovered ÷ Next year\'s CF)")+
+        row("Profitability index","PV of inflows ÷ Initial cost; accept if > 1")+'</div>'+
+      '<h4>Cost of capital</h4><div class="fgrid">'+
+        row("After-tax cost of debt","Rate × (1 − Tax rate)")+
+        row("Cost of equity (CAPM)","r<sub>f</sub> + β × (r<sub>m</sub> − r<sub>f</sub>)")+
+        row("WACC","w<sub>d</sub> × after-tax K<sub>d</sub> + w<sub>e</sub> × K<sub>e</sub>")+'</div>'+
+      '</div>';
+  } else { el.innerHTML=""; }
+}
+
+function render(){
+  var list=getFiltered();
+  var done=0,right=0;
+  list.forEach(function(q){ if(answers[q.id]!==undefined){ done++; if(answers[q.id]===q.c) right++; } });
+  var total=list.length, pct=done>0?Math.round(right/done*100):0;
+  var label = curFilter==="mock" ? "Mock OA · 70 questions weighted like the real exam" : curFilter==="preoa" ? "PA gap drill · "+total+" questions" : total+" questions";
+  document.getElementById("subtitle").textContent=label;
+  document.getElementById("statDone").textContent=done+"/"+total;
+  var sc=document.getElementById("statScore");
+  sc.textContent=done>0?pct+"%":"—";
+  sc.style.color= done===0?"var(--muted)": pct>=80?"var(--ok)": pct>=60?"var(--warn)":"var(--bad)";
+
+  var html="";
+  if(total===0){
+    var msg = curFilter==="weak" ? "No weak questions yet. Answer more questions to build your history, or switch to All."
+      : curFilter==="unseen" ? "You've attempted every question in this selection. Try Drill weak or pick other topics."
+      : curFilter==="preoa" ? "None of your selected topics have PA gap questions. Select All topics."
+      : "No questions match this filter.";
+    html='<div class="empty">'+msg+'<br><br><button class="final-btn" data-act="showall">Show all questions</button></div>';
+  }
+  list.forEach(function(q,i){
+    var sel=answers[q.id], isA=sel!==undefined, ok=sel===q.c;
+    var tag=getTag(q.id), t=TOPICS[q.m];
+    html+='<div class="card'+(isA?(ok?" correct":" wrong"):"")+'"><div class="card-head"><div class="tags">';
+    html+='<span class="qnum">Q'+(i+1)+'</span><span class="'+tag.cls+'">'+tag.label+'</span>';
+    html+='<span class="tag tag-m">S'+t.s+': '+t.k+'</span>';
+    if(PA_EXACT[q.id]) html+='<span class="tag tag-pa">PA miss</span>';
+    html+='</div></div><div class="qtext">'+q.q+'</div><div class="opts">';
+    var perm=optPerm[q.id]||q.o.map(function(_,k){return k;});
+    perm.forEach(function(oi,pos){
+      var cls="opt";
+      if(isA){ if(oi===q.c) cls+=" right"; else if(oi===sel) cls+=" picked-wrong"; else cls+=" dimmed"; }
+      html+='<button class="'+cls+'"'+(isA?" disabled":"")+' data-act="pick" data-q="'+q.id+'" data-o="'+oi+'"><span class="letter">'+LETTERS[pos]+'.</span>'+q.o[oi]+(isA&&oi===q.c?" ✓":"")+(isA&&oi===sel&&!ok?" ✗":"")+'</button>';
+    });
+    html+='</div>';
+    if(isA) html+='<div class="explanation"><span class="verdict '+(ok?"ok":"no")+'">'+(ok?"✓ Correct":"✗ Incorrect")+'</span>'+q.e+'</div>';
+    html+='</div>';
+  });
+
+  if(done===total && total>0){
+    var c= pct>=80?"var(--ok)": pct>=65?"var(--warn)":"var(--bad)";
+    var fmsg = pct>=80 ? "Strong. Shuffle for another round, or run a fresh Mock OA to confirm it holds up."
+      : pct>=65 ? "Getting close. Use Drill weak to target the questions you keep missing."
+      : "Keep going. Reread the explanations on your misses, then run Drill weak.";
+    var secRows="";
+    [1,2,3,4].forEach(function(s){
+      var inS=list.filter(function(q){return TOPICS[q.m].s===s;});
+      if(!inS.length) return;
+      var r=inS.filter(function(q){return answers[q.id]===q.c;}).length;
+      secRows+='<div><span>S'+s+' '+SECTIONS[s].n+'</span><span>'+r+'/'+inS.length+' ('+Math.round(r/inS.length*100)+'%)</span></div>';
+    });
+    html+='<div class="final"><div class="final-pct" style="color:'+c+'">'+pct+'%</div><div class="final-detail">'+right+'/'+total+' correct</div>';
+    if(curFilter==="mock" && mockStart && mockEnd){
+      var mins=(mockEnd-mockStart)/60000;
+      html+='<div class="final-detail">Time: '+fmtTime(mockEnd-mockStart)+' of 150:00 · '+Math.round((mockEnd-mockStart)/1000/total)+' sec per question</div>';
+      if(mins<50) html+='<div class="final-msg">That was fast. On PA #1 you used 31 minutes. Slower, deliberate elimination is worth more points than finishing early.</div>';
+    }
+    html+='<div class="final-secs">'+secRows+'</div><div class="final-msg">'+fmsg+'</div>';
+    html+= curFilter==="mock" ? '<button class="final-btn" data-act="newmock">📝 New mock</button>' : '<button class="final-btn" data-act="shuffle">↻ New session</button>';
+    html+='<button class="final-btn" data-act="filter" data-v="weak">⚠️ Drill weak</button></div>';
+  }
+  document.getElementById("main").innerHTML=html;
+  tick();
+}
+
+function pick(id,oi){
+  if(answers[id]!==undefined) return;
+  var q=byId(id); if(!q) return;
+  if(curFilter==="mock" && !mockStart) mockStart=Date.now();
+  answers[id]=oi;
+  if(!history[id]) history[id]={c:0,t:0};
+  history[id].t+=1; if(oi===q.c) history[id].c+=1;
+  if(curFilter==="mock" && !mockEnd && mockIds.every(function(m){return answers[m]!==undefined;})) mockEnd=Date.now();
+  saveState(); render();
+}
+function setFilter(f){
+  curFilter=f;
+  if(f==="mock" && !mockIds.length) buildMock();
+  updateFilterUI(); updateChipUI(); saveState(); render();
+}
+function newSession(){
+  if(curFilter==="mock"){ buildMock(); }
+  else { answers={}; order=shuffle(allIds()); makePerms(); }
+  saveState(); window.scrollTo(0,0); render();
+}
+function doReset(){
+  var rb=document.getElementById("resetBtn");
+  if(!resetConfirming){
+    resetConfirming=true; rb.textContent="Confirm reset all?"; rb.classList.add("confirm");
+    setTimeout(function(){ if(resetConfirming){ resetConfirming=false; rb.textContent="Reset"; rb.classList.remove("confirm"); } },4000);
+    return;
+  }
+  answers={}; history={}; order=shuffle(allIds()); makePerms(); curFilter="all"; selectedMods={all:true};
+  mockIds=[]; mockStart=null; mockEnd=null;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  updateFilterUI(); updateChipUI(); saveState(); window.scrollTo(0,0); render();
+}
+
+document.addEventListener("click",function(ev){
+  var t=ev.target.closest("[data-act]"); if(!t) return;
+  var act=t.getAttribute("data-act"), v=t.getAttribute("data-v");
+  if(act==="pick") pick(+t.getAttribute("data-q"), +t.getAttribute("data-o"));
+  else if(act==="filter"){ if(v==="preoa"||v==="weak") { openPanel = openPanel==="pa" && t.classList.contains("panel-link") ? null : openPanel; renderPanels(); } setFilter(v); }
+  else if(act==="mod"){ toggleMod(v); if(curFilter==="mock") curFilter="all"; updateFilterUI(); updateChipUI(); saveState(); render(); }
+  else if(act==="sec"){ toggleSec(+v); if(curFilter==="mock") curFilter="all"; updateFilterUI(); updateChipUI(); saveState(); render(); }
+  else if(act==="shuffle") newSession();
+  else if(act==="newmock"){ buildMock(); saveState(); window.scrollTo(0,0); render(); }
+  else if(act==="reset") doReset();
+  else if(act==="panel"){ openPanel = openPanel===v ? null : v; renderPanels(); }
+  else if(act==="showall"){ selectedMods={all:true}; setFilter("all"); }
+});
+
+loadState();
+buildChips();
+updateFilterUI();
+updateChipUI();
+renderPanels();
+render();
+setInterval(tick,1000);
+</script>
+</body>
+</html>
